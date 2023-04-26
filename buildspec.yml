@@ -10,5 +10,5 @@ phases:
       - docker build . -t stapi
   build:
     commands:
-      - docker images
-      - docker run sdapi echo "Hello, World!" 
+      # - docker images
+      # - docker run sdapi echo "Hello, World!" 
