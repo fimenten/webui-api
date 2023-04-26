@@ -12,6 +12,6 @@ phases:
   build:
     commands:
       - docker images
-      docker tag sdapi:latest 430983726662.dkr.ecr.ap-northeast-1.amazonaws.com/testdiffusion/sdapi:latest
-      docker push 430983726662.dkr.ecr.ap-northeast-1.amazonaws.com/testdiffusion/sdapi:latest
+      - docker tag sdapi:latest 430983726662.dkr.ecr.ap-northeast-1.amazonaws.com/testdiffusion/sdapi:latest
+      - docker push 430983726662.dkr.ecr.ap-northeast-1.amazonaws.com/testdiffusion/sdapi:latest
       # - docker run sdapi echo "Hello, World!" 
