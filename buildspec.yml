@@ -7,8 +7,11 @@ phases:
       - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
   pre_build:
     commands:
-      - docker build . -t stapi
+      - docker build . -t sdapi
+      
   build:
     commands:
-      # - docker images
+      - docker images
+      docker tag sdapi:latest 430983726662.dkr.ecr.ap-northeast-1.amazonaws.com/testdiffusion/sdapi:latest
+      docker push 430983726662.dkr.ecr.ap-northeast-1.amazonaws.com/testdiffusion/sdapi:latest
       # - docker run sdapi echo "Hello, World!" 
