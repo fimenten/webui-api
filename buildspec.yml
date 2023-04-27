@@ -1,5 +1,8 @@
 version: 0.2
-
+env:
+  secrets-manager:
+    DOCKERHUB_USER: arn:aws:secretsmanager:ap-northeast-1:430983726662:secret:dockerhub-363irs:username
+    DOCKERHUB_PASS: arn:aws:secretsmanager:ap-northeast-1:430983726662:secret:dockerhub-363irs:password
 phases:
   install:
     commands:
@@ -7,11 +10,12 @@ phases:
       - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
   pre_build:
     commands:
-      - docker build . -t sdapi
+      - echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
       
   build:
     commands:
-      - docker images
+      - docker build . -t sdapi
+  post_build:
       - docker tag sdapi:latest 430983726662.dkr.ecr.ap-northeast-1.amazonaws.com/testdiffusion/sdapi:latest
       - docker push 430983726662.dkr.ecr.ap-northeast-1.amazonaws.com/testdiffusion/sdapi:latest
       # - docker run sdapi echo "Hello, World!" 
