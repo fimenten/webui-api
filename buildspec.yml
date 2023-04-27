@@ -10,6 +10,7 @@ phases:
       - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
   pre_build:
     commands:
+      - aws ecr get-login-password --region region | docker login --username AWS --password-stdin 430983726662.dkr.ecr.ap-northeast-1.amazonaws.com
       - echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
       
   build:
@@ -17,6 +18,7 @@ phases:
       - docker build . -t sdapi
   post_build:
     commands:
+
       - docker tag sdapi:latest 430983726662.dkr.ecr.ap-northeast-1.amazonaws.com/testdiffusion/sdapi:latest
       - docker push 430983726662.dkr.ecr.ap-northeast-1.amazonaws.com/testdiffusion/sdapi:latest
       # - docker run sdapi echo "Hello, World!" 
